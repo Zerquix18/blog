@@ -7,7 +7,7 @@ tags: react, google, maps, phyisics
 
 Let's pretend you're an engineer who works at Uber (unless you're an engineer who works at Uber). You have the task to animate a car, moving through the road, as it reaches its destination. So you're going to use React (Uber in the web uses React). How to do it?
 
-{% codesandbox youthful-hermann-k3zfi %}
+https://codesandbox.io/s/youthful-hermann-k3zfi
 
 
 ## Our tools
@@ -48,7 +48,7 @@ export default () => (
 )
 ```
 
-{% codesandbox unruffled-water-y81f1 %}
+https://codesandbox.io/s/unruffled-water-y81f1
 
 I'm not going to go into the details of how to initialize `react-google-maps`, but instead I'll focus on the logic for the movement. If you want to learn how to set it up, you can [read their guide](https://tomchentw.github.io/react-google-maps/).
 
@@ -106,7 +106,7 @@ export default () => (
 
 ```
 
-{% codesandbox zealous-rhodes-n9fjz %}
+https://codesandbox.io/s/zealous-rhodes-n9fjz
 
 
 # Polyline
@@ -152,7 +152,7 @@ export default () => (
 
 ```
 
-{% codesandbox nervous-goodall-0r4h4 %}
+https://codesandbox.io/s/nervous-goodall-0r4h4
 
 We just drew a straight line across the roundabout! I wouldn't recommend doing this while driving though.
 
@@ -202,7 +202,7 @@ export default () => (
 
 ```
 
-{% codesandbox floral-glitter-1er3s %}
+https://codesandbox.io/s/floral-glitter-1er3s
 
 And that's how you draw a curve! By adding even more coordinates we can make the straight lines less noticeable.
 
@@ -256,7 +256,7 @@ export default () => (
 
 ```
 
-{% codesandbox rough-night-k2j81 %}
+https://codesandbox.io/s/rough-night-k2j81
 
 Now we need to prepare the logic for our animation. We will have a bunch of straight lines and we need to place the car inside the path. We can separe the logic into 4 steps. 
 
@@ -413,7 +413,7 @@ export default () => (
 
 ```
 
-{% codesandbox small-bird-5tibj %}
+https://codesandbox.io/s/small-bird-5tibj
 
 
 ### Rendering the trail in real time
@@ -468,7 +468,7 @@ Now we can change or `consoleDistance` to `moveObject` and extract the part of t
 
 Putting it all together we have:
 
-{% codesandbox jolly-sky-3ez0m %}
+https://codesandbox.io/s/jolly-sky-3ez0m
 
 As you notice, the car "jumps", because we're adding the lines that were already passed, but the car is within the last element of `progress` and the remaining elements of `this.path`. So to make the animation smoother, we have to know the progress within those two lines, and then find the coordinates within those two lines. Google offers us a function to do that, found at `google.maps.geometry.spherical.interpolate`.
 
@@ -517,7 +517,7 @@ Completing our `moveObject` function, we have:
 
 And now it looks smooth!
 
-{% codesandbox unruffled-robinson-l2k4p %}
+https://codesandbox.io/s/unruffled-robinson-l2k4p
 
 Our result would be:
 
@@ -653,7 +653,7 @@ Now we only have to change our path and our velocity to make it look even better
 
 With a better path (generated with [this](https://www.doogal.co.uk/polylines.php) amazing tool), at 100km/h, we have:
 
-{% codesandbox youthful-hermann-k3zfi %}
+https://codesandbox.io/s/youthful-hermann-k3zfi
 
 For Part 2 we will customize the car icon and make it face the direction where it's going!
 
