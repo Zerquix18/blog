@@ -468,9 +468,4 @@ Regular loops can be done with `forEach`:
 
 ```
 
-
 Hope that was helpful!
-  /**
-    {name: "Luis", age: 21} 0
-    {name: "Vicky", age: 20} 1
-  **/
