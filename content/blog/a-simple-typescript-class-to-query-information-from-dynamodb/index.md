@@ -1,6 +1,6 @@
 ---
 title: A Simple TypeScript Class to query information from DynamoDB
-description: Querying IoT data using Node.js
+description: Simplifying how query DynamoDB
 date: "2022-05-07T00:00:00.000Z"
 tags: aws, dynamodb, nodejs, docclient
 ---
