@@ -6,6 +6,18 @@ const nextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/rss.xml',
+        destination: '/api/feeds?type=rss'
+      },
+      {
+        source: '/atom.xml',
+        destination: '/api/feeds?type=atom'
+      }
+    ];
+  },
   async headers() {
     return [
       {
