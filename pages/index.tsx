@@ -10,14 +10,21 @@ interface Props {
 
 export default function Home({ posts }: Props) {
   return (
-    <Layout title="All posts">
+    <Layout>
       <Bio />
       {posts.map((post) => (
         <article key={post.slug}>
           <h2>
             <Link href={`/posts/${post.slug}`}>{post.title}</Link>
           </h2>
-          <small>{post.date}</small>
+          <small>
+            {new Date(post.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+            {post.readingTime && ` • ${post.readingTime} min read`}
+          </small>
           <p>{post.description}</p>
         </article>
       ))}

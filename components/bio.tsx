@@ -1,7 +1,10 @@
 export default function Bio() {
   return (
-    <p>
-      Written by <strong>Your Name</strong>. Built with Next.js.
-    </p>
+    <div className="bio">
+      <p>
+        Personal blog by{' '}
+        <strong>Your Name</strong>. I write about web development, programming, and technology.
+      </p>
+    </div>
   );
 }

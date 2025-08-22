@@ -1,14 +1,21 @@
 import Layout from '../../components/layout';
-import { getAllPosts, getPostData } from '../../lib/posts';
+import { getAllPosts, getPostData, PostData } from '../../lib/posts';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-export default function Post({ post }: { post: Awaited<ReturnType<typeof getPostData>> }) {
+export default function Post({ post }: { post: PostData }) {
   return (
     <Layout title={post.title}>
       <article>
         <h1>{post.title}</h1>
-        <small>{post.date}</small>
-        <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+        <small>
+          {new Date(post.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+          {post.readingTime && ` • ${post.readingTime} min read`}
+        </small>
+        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
       </article>
     </Layout>
   );
