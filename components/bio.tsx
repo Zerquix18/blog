@@ -3,7 +3,7 @@ export default function Bio() {
     <div className="bio">
       <p>
         Personal blog by{' '}
-        <strong>Your Name</strong>. I write about web development, programming, and technology.
+        <strong>Luis Martinez</strong>. I write about web development, programming, and technology.
       </p>
     </div>
   );
