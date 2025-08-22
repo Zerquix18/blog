@@ -34,10 +34,11 @@ This is a Markdown-powered blog built with Next.js 15 and TypeScript. The blog u
 Posts must have frontmatter with:
 - `title` (string) - Post title
 - `date` (string) - Publication date
-- `description` (optional string) - Post description/excerpt
-- `tags` (optional string[]) - Post tags
+- `description` (string) - Post description/excerpt (defaults to empty string if not provided)
+- `tags` (string[]) - Post tags (defaults to empty array if not provided)
+- `readingTime` (number) - Automatically calculated reading time (200 words per minute)
 
-The system automatically calculates reading time (200 words per minute) for each post.
+All PostMeta fields are required in the interface for consistent type safety.
 
 ### Feed Generation
 - RSS and Atom feeds are automatically generated from the latest 20 posts
@@ -58,6 +59,36 @@ lib/                  # Utility functions and data fetching
 pages/                # Next.js pages and API routes
 public/               # Static assets
 styles/               # Global CSS
+```
+
+## Code Style Preferences
+
+### Function Returns and Destructuring
+- Extract values to variables before returning objects
+- Use explicit object structure in returns rather than spread operators
+- Example:
+```typescript
+// Preferred
+const readingTime = calculateReadingTime(content);
+const description = data.description || '';
+const tags = data.tags || [];
+const { title, date } = data as { title: string; date: string };
+
+return {
+  slug,
+  title,
+  date,
+  description,
+  tags,
+  readingTime,
+};
+
+// Avoid
+return {
+  slug,
+  readingTime: calculateReadingTime(content),
+  ...(data as { title: string; date: string; description?: string; tags?: string[] }),
+};
 ```
 
 ## Security Headers
