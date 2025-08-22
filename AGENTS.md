@@ -1,48 +1,95 @@
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
-- `pages/`: Next.js Pages Router (SSG) — `index.tsx`, `posts/[slug].tsx`, `api/feeds.ts`.
-- `lib/`: data utilities — `posts.ts` (Markdown → HTML, reading time), `feed.ts` (RSS/Atom).
-- `components/`: UI building blocks (`layout.tsx`, `bio.tsx`).
-- `content/blog/<slug>/index.md`: Markdown posts with frontmatter.
-- `public/`: static assets; `styles/`: global CSS; `next.config.js`: Next config.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build, Test, and Development Commands
-- `npm install`: install dependencies.
-- `npm run dev`: start local dev at `http://localhost:3000`.
-- `npm run build`: production build; validates TypeScript and page generation.
-- `npm start`: run the production server.
-- Feeds: visit `/api/feeds?type=rss` or `/api/feeds?type=atom` after build/start.
+## Project Overview
 
-## Coding Style & Naming Conventions
-- TypeScript with `strict: true` (see `tsconfig.json`).
-- Prettier enforced: 2 spaces, no semicolons, double quotes, `trailingComma: es5`.
-  - Example: `npx prettier --write .` (or Prettier editor integration).
-- Components: `PascalCase` in `components/`. Functions/variables: `camelCase`.
-- Slugs: `kebab-case` folder names under `content/blog/`.
-- Post frontmatter: `title`, `date` (ISO, e.g., `2024-08-21`), `description?`, `tags?`.
+This is a Markdown-powered blog built with Next.js 15 and TypeScript. The blog uses static site generation to render posts from the `content/blog` directory at build time. The architecture is inspired by Dan Abramov's overreacted.io.
 
-## Testing Guidelines
-- No automated test suite yet (`npm test` is a stub).
-- Use `npm run build` as a smoke test; verify pages render and paths generate.
-- Validate feeds: ensure `200` responses for RSS/Atom and correct metadata.
-- Prefer small PRs; include manual test notes in the PR description.
+## Development Commands
 
-## Commit & Pull Request Guidelines
-- Commits: imperative mood, concise scope (e.g., `posts: add DynamoDB article`).
-- PRs: include purpose, screenshots for UI changes, steps to verify, and linked issues.
-- Ensure Prettier passes and TypeScript compiles before requesting review.
+- `npm run dev` - Start development server
+- `npm run build` - Build production version  
+- `npm start` - Start production server
+- `npm run test` - Currently returns no-op (no tests configured)
 
-## Security & Configuration Tips
-- Set `SITE_URL` (used in feeds) via `.env.local`, e.g.:
-  
-  ```
-  SITE_URL=https://example.com
-  ```
-- Do not commit secrets. Content lives in `content/blog/` and is built at compile time.
+## Architecture
 
-## Architecture Overview
-- Markdown posts parsed in `lib/posts.ts` using `gray-matter` + `remark` → HTML.
-- Pages use `getStaticProps/getStaticPaths` for static generation.
-- `lib/feed.ts` produces RSS/Atom; served by `pages/api/feeds.ts`.
+### Content Management
+- Blog posts are stored as Markdown files in `content/blog/{slug}/index.md`
+- Each post directory can contain the post's markdown file and associated images
+- Posts use gray-matter for frontmatter parsing (title, date, description, tags)
+- Content is processed with remark and remark-html for HTML conversion
 
+### Core Files
+- `lib/posts.ts` - Core post management functions (getAllPosts, getPostData)
+- `lib/feed.ts` - RSS/Atom feed generation using the `feed` package
+- `pages/index.tsx` - Homepage listing all posts
+- `pages/posts/[slug].tsx` - Dynamic post page using getStaticPaths/getStaticProps
+- `pages/api/feeds.ts` - API endpoint for RSS/Atom feeds
+- `components/layout.tsx` - Main layout wrapper
+- `components/bio.tsx` - Author bio component
+
+### Post Structure
+Posts must have frontmatter with:
+- `title` (string) - Post title
+- `date` (string) - Publication date
+- `description` (string) - Post description/excerpt (defaults to empty string if not provided)
+- `tags` (string[]) - Post tags (defaults to empty array if not provided)
+- `readingTime` (number) - Automatically calculated reading time (200 words per minute)
+
+All PostMeta fields are required in the interface for consistent type safety.
+
+### Feed Generation
+- RSS and Atom feeds are automatically generated from the latest 20 posts
+- Feeds are accessible at `/rss.xml` and `/atom.xml` via Next.js rewrites
+- Feed metadata is configured in `lib/feed.ts` with site info
+
+### TypeScript Configuration
+- Strict TypeScript enabled with Next.js plugin
+- Path mapping configured with `@/*` pointing to root
+- All components and utilities are fully typed
+
+## File Organization
+
+```
+content/blog/           # Blog posts (each in own directory)
+components/            # React components
+lib/                  # Utility functions and data fetching
+pages/                # Next.js pages and API routes
+public/               # Static assets
+styles/               # Global CSS
+```
+
+## Code Style Preferences
+
+### Function Returns and Destructuring
+- Extract values to variables before returning objects
+- Use explicit object structure in returns rather than spread operators
+- Example:
+```typescript
+// Preferred
+const readingTime = calculateReadingTime(content);
+const description = data.description || '';
+const tags = data.tags || [];
+const { title, date } = data as { title: string; date: string };
+
+return {
+  slug,
+  title,
+  date,
+  description,
+  tags,
+  readingTime,
+};
+
+// Avoid
+return {
+  slug,
+  readingTime: calculateReadingTime(content),
+  ...(data as { title: string; date: string; description?: string; tags?: string[] }),
+};
+```
+
+## Security Headers
+The Next.js config includes security headers for X-Frame-Options, X-Content-Type-Options, and Referrer-Policy.
