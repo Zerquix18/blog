@@ -26,6 +26,15 @@ export default function Home({ posts }: Props) {
             {post.readingTime && ` • ${post.readingTime} min read`}
           </small>
           <p>{post.description}</p>
+          {Array.isArray(post.tags) && post.tags.length > 0 && (
+            <div className="post-tags">
+              {post.tags.map((tag) => (
+                <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`} className="tag">
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          )}
         </article>
       ))}
     </Layout>

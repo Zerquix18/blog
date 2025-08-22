@@ -23,6 +23,11 @@ export default function Layout({ children, title }: Props) {
         <h1>
           <Link href="/">{SITE_TITLE}</Link>
         </h1>
+        <nav className="site-nav">
+          <Link href="/">Home</Link>
+          <Link href="/archive">Archive</Link>
+          <Link href="/tags">Tags</Link>
+        </nav>
       </header>
       <main>{children}</main>
     </div>

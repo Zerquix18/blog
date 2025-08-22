@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Layout from '../../components/layout';
 import { getAllPosts, getPostData, PostData } from '../../lib/posts';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -16,6 +17,16 @@ export default function Post({ post }: { post: PostData }) {
           {post.readingTime && ` • ${post.readingTime} min read`}
         </small>
         <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+        {Array.isArray(post.tags) && post.tags.length > 0 && (
+          <div className="post-tags">
+            <h3>Tags:</h3>
+            {post.tags.map((tag) => (
+              <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`} className="tag">
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        )}
       </article>
     </Layout>
   );
