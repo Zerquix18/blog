@@ -10,9 +10,9 @@ export interface PostMeta {
   slug: string;
   title: string;
   date: string;
-  description?: string;
-  tags?: string[];
-  readingTime?: number;
+  description: string;
+  tags: string[];
+  readingTime: number;
 }
 
 export interface PostData extends PostMeta {
@@ -32,10 +32,18 @@ export function getAllPosts(): PostMeta[] {
       const fullPath = path.join(postsDirectory, slug, 'index.md');
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
+      const readingTime = calculateReadingTime(content);
+      const description = data.description || '';
+      const tags = data.tags || [];
+      const { title, date } = data as { title: string; date: string };
+      
       return {
         slug,
-        readingTime: calculateReadingTime(content),
-        ...(data as { title: string; date: string; description?: string; tags?: string[] }),
+        title,
+        date,
+        description,
+        tags,
+        readingTime,
       };
     } catch (error) {
       console.warn(`Error reading post ${slug}:`, error);
@@ -56,10 +64,18 @@ export async function getPostData(slug: string): Promise<PostData> {
     .process(content);
   const contentHtml = processedContent.toString();
   
+  const readingTime = calculateReadingTime(content);
+  const description = data.description || '';
+  const tags = data.tags || [];
+  const { title, date } = data as { title: string; date: string };
+  
   return {
     slug,
+    title,
+    date,
+    description,
+    tags,
+    readingTime,
     contentHtml,
-    readingTime: calculateReadingTime(content),
-    ...(data as { title: string; date: string; description?: string; tags?: string[] }),
   };
 }
