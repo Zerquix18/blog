@@ -1,32 +1,28 @@
 import { Feed } from 'feed';
 import { getAllPosts, getPostData } from './posts';
-
-const siteUrl = process.env.SITE_URL || 'https://yourdomain.com';
-const authorName = 'Luis Martinez';
-const siteTitle = "It's Luis's Blog";
-const siteDescription = 'Personal blog about web development, programming, and technology';
+import { SITE_URL, AUTHOR_NAME, SITE_TITLE, SITE_DESCRIPTION } from '../constants';
 
 export async function generateFeeds() {
   const posts = getAllPosts();
   
   const feed = new Feed({
-    title: siteTitle,
-    description: siteDescription,
-    id: siteUrl,
-    link: siteUrl,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    id: SITE_URL,
+    link: SITE_URL,
     language: 'en',
-    image: `${siteUrl}/favicon.ico`,
-    favicon: `${siteUrl}/favicon.ico`,
-    copyright: `All rights reserved ${new Date().getFullYear()}, ${authorName}`,
+    image: `${SITE_URL}/favicon.ico`,
+    favicon: `${SITE_URL}/favicon.ico`,
+    copyright: `All rights reserved ${new Date().getFullYear()}, ${AUTHOR_NAME}`,
     updated: new Date(),
     generator: 'Next.js using Feed for Node.js',
     feedLinks: {
-      rss2: `${siteUrl}/rss.xml`,
-      atom: `${siteUrl}/atom.xml`,
+      rss2: `${SITE_URL}/rss.xml`,
+      atom: `${SITE_URL}/atom.xml`,
     },
     author: {
-      name: authorName,
-      link: siteUrl,
+      name: AUTHOR_NAME,
+      link: SITE_URL,
     },
   });
 
@@ -36,14 +32,14 @@ export async function generateFeeds() {
       
       feed.addItem({
         title: postData.title,
-        id: `${siteUrl}/posts/${postData.slug}`,
-        link: `${siteUrl}/posts/${postData.slug}`,
+        id: `${SITE_URL}/posts/${postData.slug}`,
+        link: `${SITE_URL}/posts/${postData.slug}`,
         description: postData.description || postData.title,
         content: postData.contentHtml,
         author: [
           {
-            name: authorName,
-            link: siteUrl,
+            name: AUTHOR_NAME,
+            link: SITE_URL,
           },
         ],
         date: new Date(postData.date),
