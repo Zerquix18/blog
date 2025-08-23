@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants';
+import ThemeToggle from './theme-toggle';
 
 interface Props {
   children: ReactNode;
@@ -27,6 +28,7 @@ export default function Layout({ children, title }: Props) {
           <Link href="/">Home</Link>
           <Link href="/archive">Archive</Link>
           <Link href="/tags">Tags</Link>
+          <ThemeToggle />
         </nav>
       </header>
       <main>{children}</main>

@@ -2,7 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeStringify from 'rehype-stringify';
 
 const postsDirectory = path.join(process.cwd(), 'content', 'blog');
 
@@ -68,7 +70,9 @@ export async function getPostData(slug: string): Promise<PostData> {
   const { data, content } = matter(fileContents);
 
   const processedContent = await remark()
-    .use(html, { sanitize: false })
+    .use(remarkRehype)
+    .use(rehypeHighlight)
+    .use(rehypeStringify)
     .process(content);
   const contentHtml = processedContent.toString();
 
