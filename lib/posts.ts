@@ -70,9 +70,9 @@ export async function getPostData(slug: string): Promise<PostData> {
   const { data, content } = matter(fileContents);
 
   const processedContent = await remark()
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeHighlight)
-    .use(rehypeStringify)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);
   const contentHtml = processedContent.toString();
 

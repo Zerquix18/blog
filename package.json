@@ -2,10 +2,11 @@
   "name": "blog",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run copy-assets && next dev",
+    "build": "npm run copy-assets && next build",
     "start": "next start",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "copy-assets": "node scripts/copy-assets.js"
   },
   "dependencies": {
     "feed": "^5.1.0",

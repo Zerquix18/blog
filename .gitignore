@@ -58,6 +58,9 @@ typings/
 .next/
 out/
 
+# Generated blog assets (copied from content directories)
+public/assets/
+
 # Mac files
 .DS_Store
 
