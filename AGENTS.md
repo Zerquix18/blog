@@ -90,6 +90,7 @@ return {
   ...(data as { title: string; date: string; description?: string; tags?: string[] }),
 };
 ```
+- If asked to generate a new article, always fetch the current date. DO NOT write the article yourself. Only add the metadata.
 
 ## Security Headers
 The Next.js config includes security headers for X-Frame-Options, X-Content-Type-Options, and Referrer-Policy.
