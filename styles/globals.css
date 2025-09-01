@@ -90,8 +90,7 @@ header h1 a:hover {
 }
 
 article {
-  margin-bottom: 3rem;
-  padding: 1.5rem 0;
+  padding: .5rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
 }
@@ -338,7 +337,7 @@ a:hover {
 
 .post-description {
   color: var(--color-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   line-height: 1.6;
 }
 
@@ -346,7 +345,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 .tag {
@@ -485,7 +484,7 @@ a:hover {
 
 /* Post tags styles for articles */
 .post-tags {
-  margin-top: 2rem;
+  margin-top: 0rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
