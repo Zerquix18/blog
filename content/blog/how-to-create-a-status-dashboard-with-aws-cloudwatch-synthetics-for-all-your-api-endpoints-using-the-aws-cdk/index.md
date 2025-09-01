@@ -1,6 +1,6 @@
 ---
 title: How To Create a Status Dashboard with AWS Cloudwatch Synthetics For All Your API EndPoints using the AWS CDK
-date: "2022-01-05T00:00:00.000Z"
+date: "2022-01-05 00:00 AST"
 description: "Keep your API Endpoints in check by using Canaries from AWS CloudWatch, and automate their creation by using the AWS CDK."
 ---
 

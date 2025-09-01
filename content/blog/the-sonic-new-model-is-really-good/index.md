@@ -1,7 +1,7 @@
 ---
 title: The Sonic new model is really good
 description: There's a new model in town, good at tool calls and very, very fast.
-date: "2025-08-24T00:00:00.000Z"
+date: "2025-08-24 00:00 AST"
 tags: ai, sonic, xai, cursor
 ---
 

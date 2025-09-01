@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import Layout from '../components/layout';
 import { getAllPosts } from '../lib/posts';
+import { parsePostDate } from '../lib/date-utils';
 
 interface ArchiveIndexProps {
   years: { year: string; count: number }[];
@@ -38,7 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const yearsMap = new Map<string, number>();
 
   posts.forEach(post => {
-    const year = new Date(post.date).getFullYear().toString();
+    const year = parsePostDate(post.date).getFullYear().toString();
     yearsMap.set(year, (yearsMap.get(year) || 0) + 1);
   });
 

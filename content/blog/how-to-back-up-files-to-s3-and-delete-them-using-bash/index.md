@@ -1,7 +1,7 @@
 ---
 title: How To Back Up Files to S3 And Delete Them Using Bash
 description: A simple bash script to send files to S3 and then upon confirmation, delete them from the local machine.
-date: "2022-04-03T00:00:00.000Z"
+date: "2022-04-03 00:00 AST"
 tags: aws, s3, bash, backup
 ---
 

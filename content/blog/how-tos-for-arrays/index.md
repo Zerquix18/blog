@@ -1,7 +1,7 @@
 ---
 title: How-To's For Pretty Much ANYTHING You Wanna Do To An Array in JavaScript
 description: A compilation of examples to manipulate arrays in Javascript 
-date: "2020-03-03T00:00:00.000Z"
+date: "2020-03-03 00:00 AST"
 tags: javascript
 ---
 

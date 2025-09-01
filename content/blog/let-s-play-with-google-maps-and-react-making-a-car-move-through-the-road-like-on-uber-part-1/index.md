@@ -1,7 +1,7 @@
 ---
 title: Let's play with Google Maps and React - Making a Car move through the road, like on Uber - Part 1
 description: Let's pretend you're an engineer who works at Uber.
-date: "2019-06-26T00:00:00.000Z"
+date: "2019-06-26 00:00 AST"
 tags: react, google, maps, phyisics
 ---
 

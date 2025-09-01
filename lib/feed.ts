@@ -1,5 +1,6 @@
 import { Feed } from 'feed';
 import { getAllPosts, getPostData } from './posts';
+import { parsePostDate } from './date-utils';
 import { SITE_URL, AUTHOR_NAME, SITE_TITLE, SITE_DESCRIPTION } from '../constants';
 
 export async function generateFeeds() {
@@ -42,7 +43,7 @@ export async function generateFeeds() {
             link: SITE_URL,
           },
         ],
-        date: new Date(postData.date),
+        date: parsePostDate(postData.date),
       });
     } catch (error) {
       console.warn(`Error processing post ${post.slug} for feed:`, error);

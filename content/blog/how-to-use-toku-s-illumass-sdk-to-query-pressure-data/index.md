@@ -1,7 +1,7 @@
 ---
 title: How to Use Toku's Illumass SDK to Query Pressure Data
 description: Querying IoT data using Node.js
-date: "2022-05-06T00:00:00.000Z"
+date: "2022-05-06 00:00 AST"
 tags: api, toku, illumass, nodejs
 ---
 

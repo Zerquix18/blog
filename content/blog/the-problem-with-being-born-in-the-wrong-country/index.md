@@ -1,6 +1,6 @@
 ---
 title: The problem with being born in the "wrong" country
-date: "2019-12-06T00:00:00.000Z"
+date: "2019-12-06 00:00 AST"
 tags: aws, visa, conference
 ---
 

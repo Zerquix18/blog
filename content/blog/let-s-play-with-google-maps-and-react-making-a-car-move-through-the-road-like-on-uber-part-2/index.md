@@ -1,7 +1,7 @@
 ---
 title: Let's play with Google Maps and React - Making a Car move through the road, like on Uber - Part 2
 description: Followup.
-date: "2019-07-02T00:00:00.000Z"
+date: "2019-07-02 00:00 AST"
 tags: 
 ---
 

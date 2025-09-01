@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Layout from '../components/layout';
 import Bio from '../components/bio';
 import { getAllPosts, PostMeta } from '../lib/posts';
+import { parsePostDate } from '../lib/date-utils';
 import { GetStaticProps } from 'next';
 
 interface Props {
@@ -18,7 +19,7 @@ export default function Home({ posts }: Props) {
             <Link href={`/posts/${post.slug}`}>{post.title}</Link>
           </h2>
           <small>
-            {new Date(post.date).toLocaleDateString('en-US', {
+            {parsePostDate(post.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'

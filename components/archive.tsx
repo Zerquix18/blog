@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { PostMeta } from '../lib/posts';
+import { parsePostDate } from '../lib/date-utils';
 
 interface ArchivePageProps {
   posts: PostMeta[];
@@ -100,7 +101,7 @@ export default function ArchivePage({ posts, archiveType, year, month, day, tag 
               </Link>
             </h2>
             <p className="post-date">
-              {new Date(post.date).toLocaleDateString('en-US', {
+              {parsePostDate(post.date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'

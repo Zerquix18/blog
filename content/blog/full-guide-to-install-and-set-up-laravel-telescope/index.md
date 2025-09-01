@@ -1,6 +1,6 @@
 ---
 title: Full guide to install and set up Laravel Telescope
-date: "2018-10-30T00:00:00.000Z"
+date: "2018-10-30 00:00 AST"
 description: "Laravel Telescope is a new debug assistant for the Laravel framework, created by the same people who created Laravel."
 ---
 

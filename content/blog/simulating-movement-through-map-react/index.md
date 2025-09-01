@@ -1,7 +1,7 @@
 ---
 title: Simulating movement through a Map using React
 description: How to make things move on a map
-date: "2022-07-16T00:00:00.000Z"
+date: "2022-07-16 00:00 AST"
 tags: react, google, maps, phyisics
 ---
 

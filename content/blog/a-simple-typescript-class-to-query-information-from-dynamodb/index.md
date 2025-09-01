@@ -1,7 +1,7 @@
 ---
 title: A Simple TypeScript Class to query information from DynamoDB
 description: Simplifying how query DynamoDB
-date: "2022-05-07T00:00:00.000Z"
+date: "2022-05-07 00:00 AST"
 tags: aws, dynamodb, nodejs, docclient
 ---
 

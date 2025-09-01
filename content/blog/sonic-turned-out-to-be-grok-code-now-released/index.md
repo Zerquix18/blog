@@ -1,7 +1,7 @@
 ---
 title: Sonic turned out to be Grok Code Fast 1, now released
 description: The mysterious Sonic model has been revealed as Grok Code by xAI, and it's now officially available.
-date: "2025-08-26T00:00:00.000Z"
+date: "2025-08-26 00:00 AST"
 tags: ai, sonic, grok, xai, coding, release
 ---
 

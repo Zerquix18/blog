@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Layout from '../../components/layout';
 import { getAllPosts, getPostData, PostData } from '../../lib/posts';
+import { parsePostDate } from '../../lib/date-utils';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 export default function Post({ post }: { post: PostData }) {
@@ -9,7 +10,7 @@ export default function Post({ post }: { post: PostData }) {
       <article>
         <h1>{post.title}</h1>
         <small>
-          {new Date(post.date).toLocaleDateString('en-US', {
+          {parsePostDate(post.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'

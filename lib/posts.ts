@@ -5,6 +5,7 @@ import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
+import { parsePostDate } from './date-utils';
 
 const postsDirectory = path.join(process.cwd(), 'content', 'blog');
 
@@ -26,6 +27,7 @@ function calculateReadingTime(content: string): number {
   const words = content.trim().split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
 }
+
 
 export function getAllPosts(): PostMeta[] {
   const slugs = fs.readdirSync(postsDirectory);
@@ -61,7 +63,11 @@ export function getAllPosts(): PostMeta[] {
     }
   }).filter(Boolean) as PostMeta[];
   
-  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return posts.sort((a, b) => {
+    const dateA = parsePostDate(a.date);
+    const dateB = parsePostDate(b.date);
+    return dateA < dateB ? 1 : -1;
+  });
 }
 
 export async function getPostData(slug: string): Promise<PostData> {
@@ -104,7 +110,7 @@ export async function getPostData(slug: string): Promise<PostData> {
 export function getPostsByYear(year: string): PostMeta[] {
   const posts = getAllPosts();
   return posts.filter(post => {
-    const postDate = new Date(post.date);
+    const postDate = parsePostDate(post.date);
     return postDate.getFullYear().toString() === year;
   });
 }
@@ -112,7 +118,7 @@ export function getPostsByYear(year: string): PostMeta[] {
 export function getPostsByYearMonth(year: string, month: string): PostMeta[] {
   const posts = getAllPosts();
   return posts.filter(post => {
-    const postDate = new Date(post.date);
+    const postDate = parsePostDate(post.date);
     return postDate.getFullYear().toString() === year &&
            (postDate.getMonth() + 1).toString().padStart(2, '0') === month;
   });
@@ -121,7 +127,7 @@ export function getPostsByYearMonth(year: string, month: string): PostMeta[] {
 export function getPostsByYearMonthDay(year: string, month: string, day: string): PostMeta[] {
   const posts = getAllPosts();
   return posts.filter(post => {
-    const postDate = new Date(post.date);
+    const postDate = parsePostDate(post.date);
     return postDate.getFullYear().toString() === year &&
            (postDate.getMonth() + 1).toString().padStart(2, '0') === month &&
            postDate.getDate().toString().padStart(2, '0') === day;
@@ -133,7 +139,7 @@ export function getAvailableArchivePaths(): { year: string; month?: string; day?
   const paths = new Set<string>();
 
   posts.forEach(post => {
-    const postDate = new Date(post.date);
+    const postDate = parsePostDate(post.date);
     const year = postDate.getFullYear().toString();
     const month = (postDate.getMonth() + 1).toString().padStart(2, '0');
     const day = postDate.getDate().toString().padStart(2, '0');
