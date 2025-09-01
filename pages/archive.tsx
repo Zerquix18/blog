@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import Layout from '../components/layout';
-import { getAllPosts } from '../lib/posts';
 import { parsePostDate } from '../lib/date-utils';
 
 interface ArchiveIndexProps {
@@ -33,6 +32,7 @@ export default function ArchiveIndex({ years }: ArchiveIndexProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const { getAllPosts } = await import('../lib/posts');
   const posts = getAllPosts();
 
   // Group posts by year

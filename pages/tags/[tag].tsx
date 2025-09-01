@@ -2,11 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import Layout from '../../components/layout';
 import ArchivePage from '../../components/archive';
-import {
-  getPostsByTag,
-  getAvailableTagPaths,
-  PostMeta
-} from '../../lib/posts';
+import { PostMeta } from '../../lib/posts';
 
 interface TagPageProps {
   posts: PostMeta[];
@@ -33,6 +29,7 @@ export default function TagPage({ posts, tag }: TagPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const { getAvailableTagPaths } = await import('../../lib/posts');
   const tagPaths = getAvailableTagPaths();
 
   const paths = tagPaths.map(tag => ({
@@ -46,6 +43,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { getPostsByTag } = await import('../../lib/posts');
   const tag = params?.tag as string;
 
   if (!tag) {

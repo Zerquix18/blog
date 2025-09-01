@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Layout from '../../components/layout';
-import { getAllPosts, getPostData, PostData } from '../../lib/posts';
+import { PostData } from '../../lib/posts';
 import { parsePostDate } from '../../lib/date-utils';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
@@ -34,6 +34,7 @@ export default function Post({ post }: { post: PostData }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const { getAllPosts } = await import('../../lib/posts');
   const posts = getAllPosts();
   return {
     paths: posts.map((post) => ({ params: { slug: post.slug } })),
@@ -42,6 +43,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { getPostData } = await import('../../lib/posts');
   const post = await getPostData(params?.slug as string);
   return { props: { post } };
 };

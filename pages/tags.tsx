@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import Layout from '../components/layout';
-import { getAllTags } from '../lib/posts';
 
 interface TagsIndexProps {
   tags: { tag: string; count: number }[];
@@ -32,6 +31,7 @@ export default function TagsIndex({ tags }: TagsIndexProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const { getAllTags } = await import('../lib/posts');
   const tags = getAllTags();
 
   return {

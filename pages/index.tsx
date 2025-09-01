@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Layout from '../components/layout';
 import Bio from '../components/bio';
-import { getAllPosts, PostMeta } from '../lib/posts';
+import { PostMeta } from '../lib/posts';
 import { parsePostDate } from '../lib/date-utils';
 import { GetStaticProps } from 'next';
 
@@ -43,6 +43,7 @@ export default function Home({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const { getAllPosts } = await import('../lib/posts');
   const posts = getAllPosts();
   return { props: { posts } };
 };

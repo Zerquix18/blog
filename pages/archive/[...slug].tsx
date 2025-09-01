@@ -1,13 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Layout from '../../components/layout';
 import ArchivePage from '../../components/archive';
-import {
-  getPostsByYear,
-  getPostsByYearMonth,
-  getPostsByYearMonthDay,
-  getAvailableArchivePaths,
-  PostMeta
-} from '../../lib/posts';
+import { PostMeta } from '../../lib/posts';
 
 interface ArchiveProps {
   posts: PostMeta[];
@@ -49,6 +43,7 @@ export default function Archive({ posts, archiveType, year, month, day }: Archiv
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const { getAvailableArchivePaths } = await import('../../lib/posts');
   const archivePaths = getAvailableArchivePaths();
 
   const paths = archivePaths.map(({ year, month, day }) => {
@@ -68,6 +63,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const {
+    getPostsByYear,
+    getPostsByYearMonth,
+    getPostsByYearMonthDay
+  } = await import('../../lib/posts');
+
   const slug = params?.slug as string[];
 
   if (!slug || slug.length < 1 || slug.length > 3) {

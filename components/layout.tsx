@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Script from 'next/script';
 import { ReactNode } from 'react';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants';
 import ThemeToggle from './theme-toggle';
@@ -22,22 +23,27 @@ export default function Layout({ children, title }: Props) {
         <link rel="alternate" type="application/rss+xml" title={`RSS Feed for ${SITE_TITLE}`} href="/rss.xml" />
         <link rel="alternate" type="application/atom+xml" title={`Atom Feed for ${SITE_TITLE}`} href="/atom.xml" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        {GA_TRACKING_ID && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_TRACKING_ID}');
-                `,
-              }}
-            />
-          </>
-        )}
+
       </Head>
+      {GA_TRACKING_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+          >
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}');
+            `}
+          </Script>
+        </>
+      )}
       <header>
         <h1>
           <Link href="/">{SITE_TITLE}</Link>
