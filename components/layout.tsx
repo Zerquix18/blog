@@ -4,6 +4,8 @@ import { ReactNode } from 'react';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants';
 import ThemeToggle from './theme-toggle';
 import { GA_TRACKING_ID } from '../lib/gtag';
+import XIcon from './icons/XIcon';
+import LinkedInIcon from './icons/LinkedInIcon';
 
 interface Props {
   children: ReactNode;
@@ -44,6 +46,12 @@ export default function Layout({ children, title }: Props) {
           <Link href="/">Home</Link>
           <Link href="/archive">Archive</Link>
           <Link href="/tags">Tags</Link>
+          <a href="https://twitter.com/zerquix18" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Twitter">
+            <XIcon />
+          </a>
+          <a href="https://linkedin.com/in/zerquix18" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+            <LinkedInIcon />
+          </a>
           <ThemeToggle />
         </nav>
       </header>

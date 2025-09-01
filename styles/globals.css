@@ -64,6 +64,7 @@ header h1 {
 .site-nav {
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
 .site-nav a {
@@ -71,6 +72,8 @@ header h1 {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .site-nav a:hover {
