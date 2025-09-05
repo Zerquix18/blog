@@ -4,6 +4,8 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import { parsePostDate } from './date-utils';
 
@@ -18,14 +20,47 @@ export interface PostMeta {
   readingTime: number;
 }
 
+export interface TableOfContentsItem {
+  id: string;
+  text: string;
+  level: number;
+}
+
 export interface PostData extends PostMeta {
   contentHtml: string;
+  tableOfContents: TableOfContentsItem[];
 }
 
 function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
+}
+
+function extractTableOfContents(content: string): TableOfContentsItem[] {
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  const toc: TableOfContentsItem[] = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2].trim();
+    // Create slug from text (same logic as rehype-slug)
+    const id = text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    
+    toc.push({
+      id,
+      text,
+      level
+    });
+  }
+
+  return toc;
 }
 
 
@@ -70,16 +105,51 @@ export function getAllPosts(): PostMeta[] {
   });
 }
 
+function generateTocHtml(tableOfContents: TableOfContentsItem[]): string {
+  if (!tableOfContents || tableOfContents.length === 0) {
+    return '';
+  }
+
+  const tocItems = tableOfContents.map(item => 
+    `<li class="toc-level-${item.level}"><a href="#${item.id}">${item.text}</a></li>`
+  ).join('\n');
+
+  return `<div class="table-of-contents">
+<h3>Table of Contents</h3>
+<nav>
+<ul>
+${tocItems}
+</ul>
+</nav>
+</div>`;
+}
+
 export async function getPostData(slug: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, slug, 'index.md');
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
+  // Extract table of contents before processing
+  const tableOfContents = extractTableOfContents(content);
+
+  // Replace [toc] markers with actual table of contents HTML
+  let processedMarkdown = content;
+  const tocMarkerRegex = /\[toc\]/gi;
+  const tocHtml = generateTocHtml(tableOfContents);
+  processedMarkdown = processedMarkdown.replace(tocMarkerRegex, tocHtml);
+
   const processedContent = await remark()
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, { 
+      behavior: 'wrap',
+      properties: {
+        className: ['header-link']
+      }
+    })
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content);
+    .process(processedMarkdown);
   const contentHtml = processedContent.toString();
 
   const readingTime = calculateReadingTime(content);
@@ -103,6 +173,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     tags,
     readingTime,
     contentHtml,
+    tableOfContents,
   };
 }
 
