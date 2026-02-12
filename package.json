@@ -9,7 +9,7 @@
     "copy-assets": "node scripts/copy-assets.js"
   },
   "dependencies": {
-    "feed": "^5.1.0",
+    "feed": "^5.2.0",
     "gray-matter": "^4.0.3",
     "next": "^15.5.0",
     "react": "^19.1.1",
