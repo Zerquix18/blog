@@ -6,7 +6,7 @@ tags: claude code, agents, codex, openclaw, gemini, token
 
 [CodexBar](https://codexbar.com), by Peter Steinberger (same creator of [OpenClaw](https://openclaw.ai)), has become a must-have for me and critical for my work every day. It's a simple bar at the top of your system that shows you your limits for different agent providers.
 
-![](codexbar.png)
+![](/images/posts/codexbar.png)
 
 It includes:
 
