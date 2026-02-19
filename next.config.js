@@ -15,6 +15,10 @@ const nextConfig = {
       {
         source: '/atom.xml',
         destination: '/api/feeds?type=atom'
+      },
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap'
       }
     ];
   },
