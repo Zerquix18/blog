@@ -20,7 +20,8 @@
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "remark-rehype": "^11.1.2"
+    "remark-rehype": "^11.1.2",
+    "schema-dts": "^1.1.5"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",
