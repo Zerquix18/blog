@@ -1,7 +1,7 @@
 ---
 title: My setup for running agents in parallel
 description: A practical setup for running multiple coding agents across separate repo clones without losing context.
-date: 2026-05-10 00:00 CEST
+date: 2026-05-10 16:35 CEST
 tags:
   - agents
   - software engineering
